@@ -37,7 +37,7 @@ let planetArr = [];
 const sun = new planet(0, 80, 0, .01*(1/27), 
   new THREE.Mesh(
     new THREE.SphereGeometry( 40, 100, 100 ),
-    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('sun.jpg') } )
+    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('textures/sun.jpg') } )
   )
 );
 scene.add(sun.mesh);
@@ -46,7 +46,7 @@ scene.add(sun.mesh);
 const earth = new planet(.0001, 2, sun.radius+92.96, .01,
   new THREE.Mesh(
     new THREE.SphereGeometry( 2, 100, 100 ),
-    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('earth.jpg') } )
+    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('textures/earth.jpg') } )
   )
 );
 earth.mesh.position.setX(earth.orbitRadius);
@@ -56,7 +56,7 @@ scene.add(earth.mesh);
 const mercury = new planet(earth.speed*(1/.241), earth.radius*(2/5), sun.radius+35.98, earth.rotation*(1/59),
   new THREE.Mesh(
     new THREE.SphereGeometry( earth.radius*(2/5), 100, 100 ),
-    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('mercury.jpg') } ),
+    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('textures/mercury.jpg') } ),
   )
 );
 mercury.mesh.position.setX(mercury.orbitRadius);
@@ -66,7 +66,7 @@ scene.add(mercury.mesh);
 const venus = new planet(earth.speed*(1/.616), earth.radius*.949, sun.radius+67.24, earth.rotation*(1/117),
   new THREE.Mesh(
     new THREE.SphereGeometry( earth.radius*.949, 100, 100 ),
-    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('venus.jpg') } ),
+    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('textures/venus.jpg') } ),
   )
 );
 venus.mesh.position.setX(venus.orbitRadius);
@@ -76,7 +76,7 @@ scene.add(venus.mesh);
 const mars = new planet(earth.speed*(1/1.88), earth.radius*.532, sun.radius+141.6*.75, earth.rotation*(1/1.026),
   new THREE.Mesh(
     new THREE.SphereGeometry( earth.radius*.532, 100, 100 ),
-    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('mars.jpg') } ),
+    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('textures/mars.jpg') } ),
   )
 );
 mars.mesh.position.setX(mars.orbitRadius);
@@ -86,7 +86,7 @@ scene.add(mars.mesh);
 const jupiter = new planet(earth.speed*(1/12), earth.radius*11, sun.radius+483.8*.3, earth.rotation*2.4,
   new THREE.Mesh(
     new THREE.SphereGeometry( earth.radius*11, 100, 100 ),
-    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('jupiter.jpg') } ),
+    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('textures/jupiter.jpg') } ),
   )
 );
 jupiter.mesh.position.setX(jupiter.orbitRadius);
@@ -96,13 +96,13 @@ scene.add(jupiter.mesh);
 const saturn = new planet(earth.speed*(1/29), earth.radius*9.45, sun.radius+890.8*.3, earth.rotation*2.24,
   new THREE.Mesh(
     new THREE.SphereGeometry( earth.radius*9.45, 100, 100 ),
-    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('saturn.jpg') } ),
+    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('textures/saturn.jpg') } ),
   )
 );
 saturn.mesh.position.setX(saturn.orbitRadius);
 scene.add(saturn.mesh);
 // ring
-const ringsTexture = new THREE.TextureLoader().load('rings.jpg');
+const ringsTexture = new THREE.TextureLoader().load('textures/rings.jpg');
 ringsTexture.repeat.set(.5, .5);
 ringsTexture.offset.set(.2, .2);
 const saturnRing = new THREE.Mesh(
@@ -116,7 +116,7 @@ saturn.mesh.add(saturnRing);
 const uranus = new planet(earth.speed*(1/84), earth.radius*4.007, sun.radius+1784*.3, earth.rotation*1.39,
   new THREE.Mesh(
     new THREE.SphereGeometry( earth.radius*4.007, 100, 100 ),
-    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('uranus.jpg') } ),
+    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('textures/uranus.jpg') } ),
   )
 );
 uranus.mesh.position.setX(uranus.orbitRadius);
@@ -126,7 +126,7 @@ scene.add(uranus.mesh);
 const neptune = new planet(earth.speed*(1/65), earth.radius*3.883, sun.radius+2793*.3, earth.rotation*1.49,
   new THREE.Mesh(
     new THREE.SphereGeometry( earth.radius*3.883, 100, 100 ),
-    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('neptune.jpg') } ),
+    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('textures/neptune.jpg') } ),
   )
 );
 neptune.mesh.position.setX(neptune.orbitRadius);
@@ -136,7 +136,7 @@ scene.add(neptune.mesh);
 const pluto = new planet(earth.speed*(1/248), earth.radius*.186*10, sun.radius+3700*.3, earth.rotation*(1/6.4),
   new THREE.Mesh(
     new THREE.SphereGeometry( earth.radius*.186*10, 100, 100 ),
-    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('pluto.jpg') } ),
+    new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load('textures/pluto.jpg') } ),
   )
 );
 pluto.mesh.position.setX(pluto.orbitRadius);
@@ -167,10 +167,11 @@ scene.add(pointLight);
 // scene.add( gridHelper );
 
 // orbit controls
-let controls = new OrbitControls( camera, renderer.domElement );
+const controls = new OrbitControls( camera, renderer.domElement );
+controls.saveState();
 
 // textures and texture mapping
-const spaceTexture = new THREE.TextureLoader().load('space.jpg');
+const spaceTexture = new THREE.TextureLoader().load('textures/space.jpg');
 scene.background = spaceTexture;
 
 let raycaster, mouseVector;
@@ -181,7 +182,7 @@ window.addEventListener('resize', onWindowResize, false );
 window.addEventListener('keypress', function(event) {
   if (event.key === 'e') {
     console.log(1);
-    pivot = earth.object;
+    pivot = earth.mesh;
     console.log(pivot);
   }
 });
@@ -207,6 +208,7 @@ function raycast(event) {
     camera.position.z = pivot.position.z + 60;
   } else {
     pivot = null
+    controls.reset();
   }
 }
 
