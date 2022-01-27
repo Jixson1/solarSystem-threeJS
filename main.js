@@ -143,24 +143,19 @@ pluto.mesh.position.setX(pluto.orbitRadius);
 scene.add(pluto.mesh);
 
 planetArr.push(
-  mercury, venus, earth, mars, 
+  sun, mercury, venus, earth, mars, 
   jupiter, saturn, uranus, neptune, 
-  pluto, sun
+  pluto
 )
 
 // draw orbits
-for (let i = 0; i < planetArr.length; i += 1) {
+for (let i = 1; i < planetArr.length; i += 1) {
   drawOrbit(planetArr[i]);
 }
 
-
-const pointLight = new THREE.PointLight(0xffffff);
-pointLight.position.set( 0, 0, 0 );
-scene.add(pointLight);
-
 // lighting
-// const ambientLight = new THREE.AmbientLight(0xffffff);
-// scene.add( ambientLight );
+const ambientLight = new THREE.AmbientLight(0xffffff);
+scene.add( ambientLight );
 
 // grid helper
 // const gridHelper = new THREE.GridHelper( 300, 30 );
@@ -168,7 +163,6 @@ scene.add(pointLight);
 
 // orbit controls
 const controls = new OrbitControls( camera, renderer.domElement );
-controls.saveState();
 
 // textures and texture mapping
 const spaceTexture = new THREE.TextureLoader().load('textures/space.jpg');
@@ -176,14 +170,12 @@ scene.background = spaceTexture;
 
 let raycaster, mouseVector;
 let pivot = sun.object;
-renderer.domElement.addEventListener('click', raycast, false);
+renderer.domElement.addEventListener('pointerdown', raycast, false);
 window.addEventListener('resize', onWindowResize, false );
 
 window.addEventListener('keypress', function(event) {
   if (event.key === 'e') {
-    console.log(1);
-    pivot = earth.mesh;
-    console.log(pivot);
+    changePivot(earth.mesh)
   }
 });
 
@@ -201,15 +193,20 @@ function raycast(event) {
   //3. compute intersections
   let intersects = raycaster.intersectObjects( scene.children );
   if (intersects.length > 0 && intersects[0].object.type == 'Mesh') {
-    pivot = intersects[0].object;
-    console.log(pivot);
-    camera.position.x = pivot.position.x + 60;
-    camera.position.y = pivot.position.y + 60;
-    camera.position.z = pivot.position.z + 60;
+    if (pivot != intersects[0].object) {
+      changePivot(intersects[0].object);
+    }
   } else {
-    pivot = null
-    controls.reset();
+    changePivot(sun.mesh)
   }
+}
+
+// change pivot function - takes planet mesh as input
+function changePivot(planetMesh) {
+  pivot = planetMesh;
+  camera.position.x = pivot.position.x + 60;
+  camera.position.y = pivot.position.y + 60;
+  camera.position.z = pivot.position.z + 60;
 }
 
 // draw orbit function
@@ -231,21 +228,33 @@ function rotatePlanet(planet) {
 let date;
 function orbit(planet) {
   date = Date.now() * planet.speed;
+
+  if (planet.mesh == pivot) {
+    let dx = (Math.cos(date) * planet.orbitRadius) - planet.mesh.position.x
+    let dz = (-Math.sin(date) * planet.orbitRadius) - planet.mesh.position.z
+    camera.position.x += dx;
+    camera.position.z += dz;
+  }
+
   planet.mesh.position.set(
     Math.cos(date) * planet.orbitRadius,
     0,
     -Math.sin(date) * planet.orbitRadius
   );
+
+  
 }
 
-function onWindowResize () {
+// resize window
+function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize (window.innerWidth, window.innerHeight);
 }
 
 
-// animate shit
+// animate function
+// this is where the magic happens
 function animate() {
     requestAnimationFrame( animate );
     
