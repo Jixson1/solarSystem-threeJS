@@ -211,9 +211,12 @@ function raycast(event) {
   }
 }
 
+let cameraAtPlanet = true;
 // change pivot function - takes planet mesh as input
 function changePivot(planetMesh) {
   pivot = planetMesh;
+  cameraAtPlanet = false;
+  console.log(pivot);
 }
 
 // draw orbit function
@@ -274,15 +277,16 @@ function animate() {
     }
     // orbit controls
     if (pivot != null) {
-      // camera.position.x = pivot.position.x + (3 * pivot.geometry.boundingSphere.radius) * Math.cos(pivot.position.x * date);
-      // camera.position.z = pivot.position.z + (3 * pivot.geometry.boundingSphere.radius) * Math.sin(pivot.position.z * date);
+      controls.target = pivot.position;
       let cameraDistance = Math.sqrt(Math.pow(camera.position.x - pivot.position.x, 2) 
       + Math.pow(camera.position.y - pivot.position.y, 2) 
       + Math.pow(camera.position.z - pivot.position.z, 2))
-      controls.target = pivot.position;
+      if (cameraDistance > (80 * pivot.geometry.boundingSphere.radius / 20) && cameraAtPlanet == false) {
+        camera.translateZ(-1 * cameraDistance/150);
+      } else {
+        cameraAtPlanet = true;
+      }
     }
-    // controls.target.copy(pivot.position);
-    // console.log(pivot.position);
     controls.update();
 
     renderer.render( scene, camera );
