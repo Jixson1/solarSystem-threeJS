@@ -1,7 +1,6 @@
 import './style.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { RingBufferGeometry } from 'three';
 
 // planet object
 class planet {
@@ -29,7 +28,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.set(0, 60, 120);
 
 
-// initializing planet objects
+// initializing planet objects and planet array
 
 let planetArr = [];
 
@@ -157,10 +156,6 @@ for (let i = 1; i < planetArr.length; i += 1) {
 const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add( ambientLight );
 
-// grid helper
-// const gridHelper = new THREE.GridHelper( 300, 30 );
-// scene.add( gridHelper );
-
 // orbit controls
 const controls = new OrbitControls( camera, renderer.domElement );
 controls.maxDistance = 2000;
@@ -169,11 +164,10 @@ controls.maxDistance = 2000;
 const spaceTexture = new THREE.TextureLoader().load('textures/space.jpg');
 scene.background = spaceTexture;
 
+// mouse interaction variables
 let raycaster, mouseVector;
 let pivot = sun.object;
-
 renderer.domElement.addEventListener('pointerdown', raycast, false);
-window.addEventListener('resize', onWindowResize, false );
 
 // hotkeys
 window.addEventListener('keypress', function(event) {
@@ -256,12 +250,12 @@ function orbit(planet) {
 }
 
 // resize window
+window.addEventListener('resize', onWindowResize, false ); 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize (window.innerWidth, window.innerHeight);
 }
-
 
 // animate function
 // this is where the magic happens
@@ -275,7 +269,8 @@ function animate() {
       rotatePlanet(planetArr[i]);
       orbit(planetArr[i]);
     }
-    // orbit controls
+
+    // camera orbit controls
     if (pivot != null) {
       controls.target = pivot.position;
       let cameraDistance = Math.sqrt(Math.pow(camera.position.x - pivot.position.x, 2) 
