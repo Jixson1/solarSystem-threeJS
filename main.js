@@ -163,6 +163,7 @@ scene.add( ambientLight );
 
 // orbit controls
 const controls = new OrbitControls( camera, renderer.domElement );
+controls.maxDistance = 2000;
 
 // textures and texture mapping
 const spaceTexture = new THREE.TextureLoader().load('textures/space.jpg');
@@ -170,12 +171,23 @@ scene.background = spaceTexture;
 
 let raycaster, mouseVector;
 let pivot = sun.object;
+
 renderer.domElement.addEventListener('pointerdown', raycast, false);
 window.addEventListener('resize', onWindowResize, false );
 
+// hotkeys
 window.addEventListener('keypress', function(event) {
-  if (event.key === 'e') {
-    changePivot(earth.mesh)
+  switch (event.key) {
+    case '1': changePivot(mercury.mesh); break; 
+    case '2': changePivot(venus.mesh); break; 
+    case '3': changePivot(earth.mesh); break;
+    case '4': changePivot(mars.mesh); break; 
+    case '5': changePivot(jupiter.mesh); break; 
+    case '6': changePivot(saturn.mesh); break; 
+    case '7': changePivot(uranus.mesh); break; 
+    case '8': changePivot(neptune.mesh); break; 
+    case '9': changePivot(pluto.mesh); break; 
+    case '0': changePivot(sun.mesh); break;
   }
 });
 
@@ -196,17 +208,12 @@ function raycast(event) {
     if (pivot != intersects[0].object) {
       changePivot(intersects[0].object);
     }
-  } else {
-    changePivot(sun.mesh)
   }
 }
 
 // change pivot function - takes planet mesh as input
 function changePivot(planetMesh) {
   pivot = planetMesh;
-  camera.position.x = pivot.position.x + 60;
-  camera.position.y = pivot.position.y + 60;
-  camera.position.z = pivot.position.z + 60;
 }
 
 // draw orbit function
@@ -269,6 +276,9 @@ function animate() {
     if (pivot != null) {
       // camera.position.x = pivot.position.x + (3 * pivot.geometry.boundingSphere.radius) * Math.cos(pivot.position.x * date);
       // camera.position.z = pivot.position.z + (3 * pivot.geometry.boundingSphere.radius) * Math.sin(pivot.position.z * date);
+      let cameraDistance = Math.sqrt(Math.pow(camera.position.x - pivot.position.x, 2) 
+      + Math.pow(camera.position.y - pivot.position.y, 2) 
+      + Math.pow(camera.position.z - pivot.position.z, 2))
       controls.target = pivot.position;
     }
     // controls.target.copy(pivot.position);
