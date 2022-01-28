@@ -1,4 +1,4 @@
-# __solarSystem-threeJS__ by Jackson Buchmeyer
+# solarSystem-threeJS by Jackson Buchmeyer
 ## A model solar system project made with the three.js library
 
 ### Setup:
