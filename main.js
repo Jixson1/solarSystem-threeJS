@@ -169,9 +169,16 @@ let raycaster, mouseVector;
 let pivot = sun.object;
 renderer.domElement.addEventListener('pointerdown', raycast, false);
 
-// hotkeys
-window.addEventListener('keypress', function(event) {
-  switch (event.key) {
+// button click handling
+let buttons = document.getElementsByTagName('button');
+for (var i = 0; i < buttons.length; i++) {
+    buttons[i].onclick = function (){
+        buttonPress(this);
+    }
+}
+
+function buttonPress(button) {
+  switch (button.id) {
     case '1': changePivot(mercury.mesh); break; 
     case '2': changePivot(venus.mesh); break; 
     case '3': changePivot(earth.mesh); break;
@@ -183,7 +190,7 @@ window.addEventListener('keypress', function(event) {
     case '9': changePivot(pluto.mesh); break; 
     case '0': changePivot(sun.mesh); break;
   }
-});
+};
 
 // raycast function
 function raycast(event) {
