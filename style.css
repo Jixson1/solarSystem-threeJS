@@ -1,3 +1,8 @@
+body {
+  overflow: hidden;
+  margin: 0;
+}
+
 canvas {
   position: fixed;
   top: 0;
@@ -5,17 +10,15 @@ canvas {
   z-index: -1;
   
 }
-
-body {
-  overflow: hidden;
-  margin: 0;
-}
+/* ======================
+PLANET SELECTORS
+====================== */ 
 
 .planet-selector {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 10%;
+  width: 200px;
 }
 
 .buttonTable {
@@ -23,9 +26,11 @@ body {
   table-layout: fixed;
   border-collapse: collapse;
   background-color:rgb(2, 18, 22);
-  opacity: .75;
-  padding: 20px;
+  opacity: .6;
+  padding: 30px;
   pointer-events:fill;
+  border-radius: 16px;
+
 }
 
 .planet-selector:after {
@@ -43,8 +48,7 @@ body {
   padding: 20%;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
-
+  font-size: 100%;
   border-radius: 16px;
 }
 
