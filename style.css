@@ -2,4 +2,68 @@ canvas {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: -1;
+  
 }
+
+body {
+  overflow: hidden;
+  margin: 0;
+}
+
+.planet-selector {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 10%;
+}
+
+.buttonTable {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  background-color:rgb(2, 18, 22);
+  opacity: .75;
+  padding: 20px;
+  pointer-events:fill;
+}
+
+.planet-selector:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.buttonTable button {
+  background-color: rgb(0, 184, 230);
+  border: none;
+  color: rgb(0, 61, 77);
+  text-align: center;
+  width: 100%;
+  padding: 20%;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+
+  border-radius: 16px;
+}
+
+.buttonTable button:hover {
+  background: rgb(0, 61, 77);
+  color: white;
+}
+.buttonTable:hover {
+  opacity: 1;
+}
+
+/* @keyframes slidein {
+  from {
+    margin-left: 100%;
+  }
+
+  to {
+    margin-left: 0%;
+  }
+} */
+
+
