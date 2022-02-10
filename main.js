@@ -1,4 +1,4 @@
-import './style.css';
+
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
@@ -20,7 +20,7 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 
 // renderer boilerplate
 const renderer = new THREE.WebGLRenderer({
-    canvas: document.querySelector('#bg'),
+  canvas: document.querySelector('#bg'),
 });
 
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -245,8 +245,6 @@ function orbit(planet) {
     0,
     -Math.sin(date) * planet.orbitRadius
   );
-
-  
 }
 
 // resize window
@@ -261,10 +259,8 @@ function onWindowResize() {
 // this is where the magic happens
 function animate() {
     requestAnimationFrame( animate );
-    
-    // planet rotation
 
-    // planet orbit
+    // planet rotation and orbit
     for (let i = 0; i < planetArr.length; i += 1) {
       rotatePlanet(planetArr[i]);
       orbit(planetArr[i]);
