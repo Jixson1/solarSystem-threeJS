@@ -20,18 +20,23 @@ PLANET SELECTORS
   left: 0;
   width: 200px;
   height: auto;
-  background-color:rgb(65, 65, 65);
+  background-color:rgb(97, 96, 96);
   opacity: .7;
   padding: 2px;
   border-radius: 16px;
   transform: translateY(80%);
   transition: 0.4s;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-shadow: 3px 3px black;
+  border-color:rgb(68, 68, 68);
+  border-width: 5px;
+  border-style: outset;
 }
 
 .planet-label {
   text-align: center;
-  
+  border-radius: 16px;
+  background-color: rgb(36, 35, 34);
   font-size: 200%;
   width: 100%;
   height: auto;
@@ -53,21 +58,23 @@ PLANET SELECTORS
 }
 
 .buttonTable button {
-  background-color: rgb(13, 90, 161);
-  box-shadow: 0px 5px rgba(0, 0, 0, 0.473);
+  background-color: rgb(209, 104, 5);
+  box-shadow: 3px 3px rgba(0, 0, 0, 0.473);
   color: rgb(255, 255, 255);
   text-align:center;
+  text-shadow: 2px 2px black;
   width: 100%;
   padding: 20%;
   text-decoration: none;
   display: inline-block;
-  font-size: 90%;
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: 100%;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   border-radius: 16px;
+  border-style: none;
 }
 
 .buttonTable button:hover {
-  background: rgb(24, 24, 24);
+  background: rgb(228, 136, 49);
   color: rgb(255, 255, 255);
 }
 .planet-selector:hover {
