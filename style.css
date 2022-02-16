@@ -19,10 +19,23 @@ PLANET SELECTORS
   bottom: 0;
   left: 0;
   width: 200px;
-  background-color:rgb(9, 119, 245);
+  height: auto;
+  background-color:rgb(65, 65, 65);
   opacity: .7;
   padding: 2px;
   border-radius: 16px;
+  transform: translateY(80%);
+  transition: 0.4s;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.planet-label {
+  text-align: center;
+  
+  font-size: 200%;
+  width: 100%;
+  height: auto;
+  color:rgb(255, 255, 255);
 }
 
 .buttonTable, td {
@@ -40,8 +53,8 @@ PLANET SELECTORS
 }
 
 .buttonTable button {
-  background-color: rgb(0, 0, 0);
-  border: none;
+  background-color: rgb(13, 90, 161);
+  box-shadow: 0px 5px rgba(0, 0, 0, 0.473);
   color: rgb(255, 255, 255);
   text-align:center;
   width: 100%;
@@ -49,6 +62,7 @@ PLANET SELECTORS
   text-decoration: none;
   display: inline-block;
   font-size: 90%;
+  font-family: Arial, Helvetica, sans-serif;
   border-radius: 16px;
 }
 
@@ -58,16 +72,7 @@ PLANET SELECTORS
 }
 .planet-selector:hover {
   opacity: 1;
+  transform: translateY(0%);
 }
-
-/* @keyframes slidein {
-  from {
-    margin-left: 100%;
-  }
-
-  to {
-    margin-left: 0%;
-  }
-} */
 
 
